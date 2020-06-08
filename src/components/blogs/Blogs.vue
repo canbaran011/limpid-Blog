@@ -1,22 +1,39 @@
 <template>
+
+
   <div>
     <div class="container-md flex-md-row">
-      <div class="card border-primary float-left mx-3 my-3" style="max-width: 20rem;">
-        <div class="card-header">Header Title</div>
+     <div class="d-flex flex-wrap flex-row justify-content-center align-items-center">
+      <div v-for="blog in blogList"  :key="blog.key" style="width:250px" class="card m-1">
+        <img class="card-img-top" :src="blog.thumbnail" :alt="blog.title">
         <div class="card-body">
-          <h4 class="card-title">Primary card title</h4>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <router-link tag="button" class="btn btn-outline-primary" to="/blogs/1">
-            Details
-            </router-link>
-          
-
-        </div>
+          <h5 class="card-title">  {{blog.title}} </h5>
+         
       </div>
-      
+
+    </div>
     </div>
   </div>
+  </div>
+
 </template>
+<script>
+import axios from 'axios'
+export default {
+  data(){
+    return{
+      blogList:[]
+    }
+  },
+  created(){
+    axios.get("https://limpid-blog.firebaseio.com/posts.json")
+    .then((response) =>{
+      let data = response.data;
+      for(let key in data){
+        this.blogList.push({ ...data[key], id: key})
+      }
+      console.log(response)
+    })
+  }
+};
+</script>

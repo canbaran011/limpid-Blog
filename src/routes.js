@@ -40,7 +40,7 @@ export const routes =[
     "header-top" : Header
 },
     children :[
-        {   path: '' , component: Blogs },
+        
         {   path: ':id' , component: BlogDetail  },
         {   path: ':id/edit', component: BlogEdit , name: "blogEdit"   }
     ]

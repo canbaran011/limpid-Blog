@@ -14,10 +14,10 @@
     <div class="row text-center">
 
       <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
+        <div v-for="blog in blogList"  :key="blog.key" class="card h-100">
+          <img class="card-img-top" :src="blog.thumbnail" :alt="blog.title">
           <div class="card-body">
-            <h4 class="card-title">Card title</h4>
+            <h4 class="card-title">{{blog.title}}</h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
           </div>
           <div class="card-footer">
@@ -26,45 +26,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-          <img class="card-img-top" src="http://placehold.it/500x325" alt="">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magni sapiente, tempore debitis beatae culpa natus architecto.</p>
-          </div>
-          <div class="card-footer">
-            <a href="#" class="btn btn-primary">Find Out More!</a>
-          </div>
-        </div>
-      </div>
-
+      
     </div>
     <!-- /.row -->
 
@@ -74,7 +36,21 @@
 </template>
 <script>
 export default {
-    
+     data(){
+    return{
+      blogList:[]
+    }
+  },
+  created(){
+    axios.get("https://limpid-blog.firebaseio.com/posts.json")
+    .then((response) =>{
+      let data = response.data;
+      for(let key in data){
+        this.blogList.push({ ...data[key], id: key})
+      }
+      console.log(response)
+    })
+  }
 }
 </script>
 <style scoped>
