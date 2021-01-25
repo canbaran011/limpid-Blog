@@ -14,5 +14,5 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
+WILL BE CHANGED IN Q'2
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
